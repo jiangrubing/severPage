@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width">
+    <link type="text/css" rel="stylesheet" href="Content/css/swiper.min.css">
+    <link type="text/css" rel="stylesheet" href="Content/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="Content/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="Content/css/common.css">
+    <link type="text/css" rel="stylesheet" href="Content/css/style.css">
+</head>
+<body ng-app="app">
+<header class="header">
+    <p><span class="first "><a ng-href="#/shoppingcar">服务</a></span><span><a ng-href="#/moneypage">金融</a></span></p>
+    <div class="search"><i class="fa fa-search"></i></div>
+</header>
+<section class="content">
+    <ui-view></ui-view>
+</section>
+<footer class="footer">
+    <dl class="footer-first">
+        <dt><i class="fa fa-home"></i></dt>
+        <dd>首页</dd>
+    </dl>
+    <dl>
+        <dt><i class="fa fa-smile-o"></i></dt>
+        <dd>论坛</dd>
+    </dl>
+    <dl>
+        <dt><i class="fa fa-car "></i></dt>
+        <dd>汽车</dd>
+    </dl>
+    <dl>
+        <dt><i class="fa fa-upload"></i></dt>
+        <dd>发现</dd>
+    </dl>
+    <dl>
+        <dt><i class="fa fa-user"></i></dt>
+        <dd>未登录</dd>
+    </dl>
+</footer>
+<script type="text/javascript" src="Script/js/swiper.min.js"></script>
+<script type="text/javascript" src="Script/js/iscroll.min.js"></script>
+<script type="text/javascript" src="Script/angular/angular.min.js"></script>
+<script type="text/javascript" src="Script/angular/angular-ui-router.js"></script>
+<script type="text/javascript" src="App/app.js"></script>
+
+<script type="text/javascript">
+    var pulldown = document.getElementById("pulldown");
+    var pullup = document.getElementById("pullup");
+    var offsetHeight = pulldown.offsetHeight;
+    var Swiper=new Swiper(".swiper-container",{
+        autoplay: 1500,
+        loop: true
+    });
+    var myScroll = new iScroll("warpper",{
+        topOffset:offsetHeight,
+        onScrollMove:function(){
+            if(this.y>5 && !pulldown.className.match("filp")){
+                pulldown.className="filp";
+            }
+        },
+        onScrollEnd:function(){
+            if(pulldown.className.match("filp")){
+                pulldown.className = "loading";
+                downActive();
+            }
+        },
+        onRefreah:function(){
+            if(pulldown.className.match("loading")){
+                pulldown.className="";
+                pulldown.querySelector("span").innerHTML="下拉刷新";
+            }
+        }
+    })
+</script>
+</body>
+</html>
